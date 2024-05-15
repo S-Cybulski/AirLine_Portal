@@ -12,7 +12,19 @@ $app = AppFactory::create();
 
 $app->get("/", function (Request $request, Response $response) {
 
-    return $response->getBody()->write(file_get_contents('index.html'));
+    $dsn = "mysql:host=127.0.0.1;dbname=airline_db;charset=utf8";
+
+    $pdo = new PDO($dsn,"root","password", [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+    ]);
+
+    $stmt = $pdo->query('SELECT * FROM users');
+
+    $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    $body = json_encode($data);
+
+    return $response->getBody()->write($body);
 
 });
 
