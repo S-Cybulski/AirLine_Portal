@@ -1,0 +1,25 @@
+FROM ubuntu/apache2
+
+RUN a2enmod rewrite
+
+# Copy the contents of your project to /var/www/html
+COPY . /var/www/html
+
+# Configure virtual host to allow .htaccess overrides
+RUN sed -i 's/AllowOverride None/AllowOverride All/g' /etc/apache2/apache2.conf
+
+# Set the document root
+RUN sed -i 's,/var/www/html,/var/www/html/public,g' /etc/apache2/sites-available/000-default.conf
+
+
+# Set the working directory to /var/www/html/public
+WORKDIR /var/www/html/public
+
+# Ensure proper permissions (optional)
+RUN chown -R www-data:www-data /var/www/html
+
+# Expose port 80
+EXPOSE 80
+
+# Start Apache
+CMD ["apache2ctl", "-D", "FOREGROUND"]

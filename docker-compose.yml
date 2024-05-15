@@ -8,8 +8,8 @@ services:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: airline_db
     ports:
-      - "3306:3306"
-  
+      - "3307:3306"
+
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     restart: always
@@ -18,3 +18,10 @@ services:
     environment:
       PMA_HOST: db
       MYSQL_ROOT_PASSWORD: password
+
+  apache2:
+    build:
+      context: .
+      dockerfile: Dockerfile.apache2
+    ports:
+      - "80:80"

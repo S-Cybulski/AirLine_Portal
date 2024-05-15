@@ -12,8 +12,8 @@ $app = AppFactory::create();
 
 $app->get("/", function (Request $request, Response $response) {
 
-    $response->getBody()->write("Hello World!");
-
-    return $response;
+    return $response->getBody()->write(file_get_contents('index.html'));
 
 });
+
+$app->run();
