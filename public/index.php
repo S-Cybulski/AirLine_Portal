@@ -33,7 +33,7 @@ $error_handler->forceContentType('application/json');
 
 $app->add(new AddJsonResponseHeader);
 
-$app->get("/",  App\Controllers\ProductIndex::class);
+$app->get("/",  App\Controllers\PassengerIndex::class);
 
 $app->get("/{id:[0-9]+}", function(Request $request, Response $response, string $id){
 

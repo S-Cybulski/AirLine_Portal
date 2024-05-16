@@ -8,9 +8,9 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 use App\Repositories\AirlineRepository;
 
-class PassengerIndex
+class ProductIndex
 {
-    public function __construct(private AirlineRepository $repository)
+    public function __construct(private ProductRepository $repository)
     {
     }
 
