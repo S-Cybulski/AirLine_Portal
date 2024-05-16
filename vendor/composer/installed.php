@@ -5,7 +5,7 @@
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '77af41b23a5bec5ca0b498f4fb255544b0f60fb3',
+        'reference' => 'c8503397b242f00a01c1dc3370ebf2cdb4172b0d',
         'name' => '__root__',
         'dev' => true,
     ),
@@ -16,7 +16,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '77af41b23a5bec5ca0b498f4fb255544b0f60fb3',
+            'reference' => 'c8503397b242f00a01c1dc3370ebf2cdb4172b0d',
             'dev_requirement' => false,
         ),
         'fig/http-message-util' => array(
@@ -28,6 +28,15 @@
             'reference' => '9d94dc0154230ac39e5bf89398b324a86f63f765',
             'dev_requirement' => false,
         ),
+        'laravel/serializable-closure' => array(
+            'pretty_version' => 'v1.3.3',
+            'version' => '1.3.3.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../laravel/serializable-closure',
+            'aliases' => array(),
+            'reference' => '3dbf8a8e914634c48d389c1234552666b3d43754',
+            'dev_requirement' => false,
+        ),
         'nikic/fast-route' => array(
             'pretty_version' => 'v1.3.0',
             'version' => '1.3.0.0',
@@ -35,6 +44,24 @@
             'install_path' => __DIR__ . '/../nikic/fast-route',
             'aliases' => array(),
             'reference' => '181d480e08d9476e61381e04a71b34dc0432e812',
+            'dev_requirement' => false,
+        ),
+        'php-di/invoker' => array(
+            'pretty_version' => '2.3.4',
+            'version' => '2.3.4.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../php-di/invoker',
+            'aliases' => array(),
+            'reference' => '33234b32dafa8eb69202f950a1fc92055ed76a86',
+            'dev_requirement' => false,
+        ),
+        'php-di/php-di' => array(
+            'pretty_version' => '7.0.6',
+            'version' => '7.0.6.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../php-di/php-di',
+            'aliases' => array(),
+            'reference' => '8097948a89f6ec782839b3e958432f427cac37fd',
             'dev_requirement' => false,
         ),
         'psr/container' => array(
@@ -45,6 +72,12 @@
             'aliases' => array(),
             'reference' => 'c71ecc56dfe541dbd90c5360474fbc405f8d5963',
             'dev_requirement' => false,
+        ),
+        'psr/container-implementation' => array(
+            'dev_requirement' => false,
+            'provided' => array(
+                0 => '^1.0',
+            ),
         ),
         'psr/http-factory' => array(
             'pretty_version' => '1.1.0',
