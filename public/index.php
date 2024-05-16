@@ -34,10 +34,13 @@ $error_handler->forceContentType('application/json');
 $app->add(new AddJsonResponseHeader);
 
 $app->get("/api/passengers",  App\Controllers\PassengerIndex::class);
-$app->get("/api",  App\Controllers\PassengerIndex::class);
 
 $app->get("/api/passengers/{id:[0-9]+}", App\Controllers\Passengers::class . ':show')->add(App\Middleware\GetPassenger::class);
 
 $app->post("/api/passengers", [App\Controllers\Passengers::class, 'create']);
+
+$app->patch("/api/passengers/{id:[0-9]+}", App\Controllers\Passengers::class . ':update')->add(App\Middleware\GetPassenger::class);
+
+$app->delete("/api/passengers/{id:[0-9]+}", App\Controllers\Passengers::class . ':delete')->add(App\Middleware\GetPassenger::class);
 
 $app->run();

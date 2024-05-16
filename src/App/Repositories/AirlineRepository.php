@@ -57,4 +57,47 @@ class AirlineRepository
 
         return $pdo->lastInsertId();
     }
+
+    public function updatePassenger(int $id, array $data) : int
+    {
+        $sql = 'UPDATE Passenger 
+                SET First_name=:first_name, 
+                    Last_name=:last_name, 
+                    Address=:address, 
+                    Phone_Number=:phone_number 
+                WHERE Passenger_ID = :id';
+
+        $pdo = $this->database->getConnection();
+
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->bindValue(':first_name', $data['First_name'], PDO::PARAM_STR);
+
+        $stmt->bindValue(':last_name', $data['Last_name'], PDO::PARAM_STR);
+
+        $stmt->bindValue(':address', $data['Address'], PDO::PARAM_STR);
+
+        $stmt->bindValue(':phone_number', $data['Phone_Number'], PDO::PARAM_STR);
+
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        return $stmt->rowCount();
+    }
+
+    public function deletePassenger(string $id) : int
+    {
+        $sql = 'DELETE FROM Passenger WHERE Passenger_ID = :id';
+
+        $pdo = $this->database->getConnection();
+
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        return $stmt->rowCount();
+    }
 }
