@@ -2,6 +2,14 @@ FROM ubuntu/apache2
 
 RUN a2enmod rewrite
 
+RUN apt-get update && \
+    apt-get install -y php8.0 libapache2-mod-php php-mysql
+
+# Set PHP configuration
+RUN sed -i 's/display_errors = Off/display_errors = On/' /etc/php/8.2/apache2/php.ini && \
+    sed -i 's/display_startup_errors = Off/display_startup_errors = On/' /etc/php/8.2/apache2/php.ini && \
+    sed -i 's/error_reporting = E_ALL & ~E_DEPRECATED & ~E_STRICT/error_reporting = E_ALL/' /etc/php/8.2/apache2/php.ini
+
 # Copy the contents of your project to /var/www/html
 COPY . /var/www/html
 
