@@ -20,4 +20,19 @@ class AirlineRepository
     
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function getPassengerById(int $id): array|bool
+    {
+        $sql = 'SELECT * FROM Passenger WHERE passenger_id = :id';
+
+        $pdo = $this->database->getConnection();
+
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 }
