@@ -7,11 +7,18 @@ namespace App\Controllers;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 use App\Repositories\AirlineRepository;
+use Valitron\Validator;
 
 class Passengers
 {
-    public function __construct(private AirlineRepository $repository)
+    public function __construct(private AirlineRepository $repository, private Validator $validator)
     {
+        $this->validator->mapFieldsRules([
+            'First_name' => ['required'],
+            'Last_name' => ['required'],
+            'Address' => ['required'],
+            'Phone_Number' => ['required']
+        ]);
     }
 
     public function show(Request $request, Response $response,string $id): Response
@@ -29,10 +36,23 @@ class Passengers
     {
         $body = $request->getParsedBody();
 
-        $body = json_encode($body);
+        $this->validator = $this->validator->withData($body);
+
+        if ( ! $this->validator->validate()) {
+            $response->getBody()->write(json_encode($this->validator->errors()));
+
+            return $response->withStatus(422);
+        }
+
+        $id = $this->repository->createPassenger($body);
+
+        $body = json_encode([
+            'message' => 'Passenger record created',
+            'id'=> $id
+        ]);
 
         $response->getBody()->write($body);
 
-        return $response;
+        return $response->withStatus(201);
     }
 }

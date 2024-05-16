@@ -35,4 +35,26 @@ class AirlineRepository
 
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    public function createPassenger(array $data) : string
+    {
+        $sql = 'INSERT INTO Passenger (First_name, Last_name, Address, Phone_Number)
+        VALUES (:first_name, :last_name, :address, :phone_number)';
+
+        $pdo = $this->database->getConnection();
+
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->bindValue(':first_name', $data['First_name'], PDO::PARAM_STR);
+
+        $stmt->bindValue(':last_name', $data['Last_name'], PDO::PARAM_STR);
+
+        $stmt->bindValue(':address', $data['Address'], PDO::PARAM_STR);
+
+        $stmt->bindValue(':phone_number', $data['Phone_Number'], PDO::PARAM_STR);
+
+        $stmt->execute();
+
+        return $pdo->lastInsertId();
+    }
 }

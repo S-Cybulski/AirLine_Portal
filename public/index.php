@@ -3,8 +3,6 @@
 declare(strict_types= 1);
 
 use Slim\Factory\AppFactory;
-use Psr\Http\Message\ServerRequestInterface as Request;
-use Psr\Http\Message\ResponseInterface as Response;
 use DI\ContainerBuilder;
 use Slim\Handlers\Strategies\RequestResponseArgs;
 use App\Middleware\AddJsonResponseHeader;
@@ -36,6 +34,7 @@ $error_handler->forceContentType('application/json');
 $app->add(new AddJsonResponseHeader);
 
 $app->get("/api/passengers",  App\Controllers\PassengerIndex::class);
+$app->get("/api",  App\Controllers\PassengerIndex::class);
 
 $app->get("/api/passengers/{id:[0-9]+}", App\Controllers\Passengers::class . ':show')->add(App\Middleware\GetPassenger::class);
 
