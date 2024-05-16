@@ -24,4 +24,15 @@ class Passengers
     
         return $response;
     }
+
+    public function create(Request $request, Response $response): Response
+    {
+        $body = $request->getParsedBody();
+
+        $body = json_encode($body);
+
+        $response->getBody()->write($body);
+
+        return $response;
+    }
 }

@@ -25,6 +25,8 @@ $collector = $app->getRouteCollector();
 
 $collector->setDefaultInvocationStrategy(new RequestResponseArgs);
 
+$app->addBodyParsingMiddleware();
+
 $error_middleware = $app->addErrorMiddleware(true, true, true);
 
 $error_handler = $error_middleware->getDefaultErrorHandler();
@@ -33,8 +35,10 @@ $error_handler->forceContentType('application/json');
 
 $app->add(new AddJsonResponseHeader);
 
-$app->get("/",  App\Controllers\PassengerIndex::class);
+$app->get("/api/passengers",  App\Controllers\PassengerIndex::class);
 
-$app->get("/{id:[0-9]+}", App\Controllers\Passengers::class . ':show')->add(App\Middleware\GetPassenger::class);
+$app->get("/api/passengers/{id:[0-9]+}", App\Controllers\Passengers::class . ':show')->add(App\Middleware\GetPassenger::class);
+
+$app->post("/api/passengers", [App\Controllers\Passengers::class, 'create']);
 
 $app->run();
