@@ -6,6 +6,10 @@ use Slim\Factory\AppFactory;
 use DI\ContainerBuilder;
 use Slim\Handlers\Strategies\RequestResponseArgs;
 use App\Middleware\AddJsonResponseHeader;
+use App\Controllers\PassengerIndex;
+use App\Controllers\Passengers;
+use App\Middleware\GetPassenger;
+use Slim\Routing\RouteCollectorProxy;
 
 define('APP_ROOT', dirname(__DIR__));
 
@@ -33,14 +37,20 @@ $error_handler->forceContentType('application/json');
 
 $app->add(new AddJsonResponseHeader);
 
-$app->get("/api/passengers",  App\Controllers\PassengerIndex::class);
+$app->group('/api', function(RouteCollectorProxy $group){
 
-$app->get("/api/passengers/{id:[0-9]+}", App\Controllers\Passengers::class . ':show')->add(App\Middleware\GetPassenger::class);
+    $group->get("/passengers",  PassengerIndex::class);
+    
+    $group->post("/passengers", [Passengers::class, 'create']);
 
-$app->post("/api/passengers", [App\Controllers\Passengers::class, 'create']);
+    $group->group('', function(RouteCollectorProxy $group){
 
-$app->patch("/api/passengers/{id:[0-9]+}", App\Controllers\Passengers::class . ':update')->add(App\Middleware\GetPassenger::class);
-
-$app->delete("/api/passengers/{id:[0-9]+}", App\Controllers\Passengers::class . ':delete')->add(App\Middleware\GetPassenger::class);
+        $group->get("/passengers/{id:[0-9]+}", Passengers::class . ':show');
+    
+        $group->patch("/passengers/{id:[0-9]+}", Passengers::class . ':update');
+    
+        $group->delete("/passengers/{id:[0-9]+}", Passengers::class . ':delete');
+    })->add(GetPassenger::class);;
+});
 
 $app->run();
