@@ -1,6 +1,7 @@
 <?php 
 
 use App\Database;
+use Slim\Views\PhpRenderer;
 
 return [
     Database::class => function() {
@@ -9,5 +10,12 @@ return [
                             name: 'airline_db',
                             user: 'root',
                             password: 'password');
+    },
+
+    PhpRenderer::class => function() {
+
+        $renderer = new PhpRenderer(__DIR__ . '/../views');
+
+        return $renderer;
     }
 ];

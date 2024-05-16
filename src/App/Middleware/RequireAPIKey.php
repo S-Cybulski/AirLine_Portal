@@ -17,9 +17,7 @@ class RequireAPIKey
     }
     public function __invoke(Request $request, RequestHandler $handler): Response
     {
-        $params = $request->getQueryParams();
-
-        if( ! array_key_exists('api-key', $params)){
+        if ( ! $request->hasHeader("X-API-Key")) {
 
             $response = $this->factory->createResponse();
 
@@ -28,7 +26,7 @@ class RequireAPIKey
             return $response->withStatus(400);
         }
 
-        if($params['api-key'] !== 'abc123') {
+        if($request->getHeaderLine('X-API-Key') !== 'abc123') {
 
             $response = $this->factory->createResponse();
 
