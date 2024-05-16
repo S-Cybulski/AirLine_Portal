@@ -16,6 +16,8 @@ return [
 
         $renderer = new PhpRenderer(__DIR__ . '/../views');
 
+        $renderer->setLayout('layout.php');
+
         return $renderer;
     }
 ];
