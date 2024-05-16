@@ -33,35 +33,17 @@ $error_handler->forceContentType('application/json');
 
 $app->add(new AddJsonResponseHeader);
 
-$app->get("/", function (Request $request, Response $response) {
-
-    $repository = $this->get(App\Repositories\AirlineRepository::class);
-
-    $data = $repository->getAllPassengers();
-
-    $body = json_encode($data);
-
-    $response->getBody()->write($body);
-
-    return $response;
-});
+$app->get("/",  App\Controllers\ProductIndex::class);
 
 $app->get("/{id:[0-9]+}", function(Request $request, Response $response, string $id){
 
-    $repository = $this->get(App\Repositories\AirlineRepository::class);
+    $passenger = $request->getAttribute('passenger');
 
-    $data = $repository->getPassengerById((int) $id);
-
-    if($data === false)
-    {
-        throw new \Slim\Exception\HttpNotFoundException($request, message: 'Passenger not found');
-    }
-
-    $body = json_encode($data);
+    $body = json_encode($passenger);
 
     $response->getBody()->write($body);
 
     return $response;
-});
+})->add(App\Middleware\GetPassenger::class);
 
 $app->run();
