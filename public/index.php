@@ -12,9 +12,9 @@ $app = AppFactory::create();
 
 $app->get("/", function (Request $request, Response $response) {
 
-    $dsn = "mysql:host=db;dbname=airline_db;charset=utf8";
+    $database = new App\Database();
 
-    $pdo = new PDO($dsn,"root","password", [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+    $pdo = $database->getConnection();
 
     $stmt = $pdo->query('SELECT * FROM Passenger');
 
