@@ -8,17 +8,17 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 use App\Repositories\AirlineRepository;
 
-class ProductIndex
+class Passengers
 {
-    public function __construct(private ProductRepository $repository)
+    public function __construct(private AirlineRepository $repository)
     {
     }
 
-    public function __invoke(Request $request, Response $response): Response
+    public function show(Request $request, Response $response,string $id): Response
     {
-        $data = $this->repository->getAllPassengers();
-    
-        $body = json_encode($data);
+        $passenger = $request->getAttribute('passenger');
+
+        $body = json_encode($passenger);
     
         $response->getBody()->write($body);
     

@@ -35,15 +35,6 @@ $app->add(new AddJsonResponseHeader);
 
 $app->get("/",  App\Controllers\PassengerIndex::class);
 
-$app->get("/{id:[0-9]+}", function(Request $request, Response $response, string $id){
-
-    $passenger = $request->getAttribute('passenger');
-
-    $body = json_encode($passenger);
-
-    $response->getBody()->write($body);
-
-    return $response;
-})->add(App\Middleware\GetPassenger::class);
+$app->get("/{id:[0-9]+}", App\Controllers\Passengers::class . ':show')->add(App\Middleware\GetPassenger::class);
 
 $app->run();
