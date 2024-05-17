@@ -100,4 +100,17 @@ class AirlineRepository
 
         return $stmt->rowCount();
     }
+
+    public function getFlightData() : array
+    {
+        $sql = 'SELECT * FROM Flight';
+
+        $pdo = $this->database->getConnection();
+
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
