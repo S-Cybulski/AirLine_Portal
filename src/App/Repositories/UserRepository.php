@@ -35,8 +35,8 @@ class UserRepository
 
         $id = $pdo->lastInsertId();
 
-        $sql = 'INSERT INTO user (ID, user_type, password_hash, api_key, api_key_hash)
-        VALUES (:id, :user_type, :password_hash, :api_key, :api_key_hash)';
+        $sql = 'INSERT INTO user (ID, user_type, password_hash, api_key)
+        VALUES (:id, :user_type, :password_hash, :api_key)';
 
         $stmt = $pdo->prepare($sql);
 
@@ -48,8 +48,21 @@ class UserRepository
 
         $stmt->bindValue(':api_key', $data['api_key'], PDO::PARAM_STR);
 
-        $stmt->bindValue(':api_key_hash', $data['api_key_hash'], PDO::PARAM_STR);
+        $stmt->execute();
+    }
+
+    public function find(string $column, $value): array|bool
+    {
+        $sql = "SELECT * FROM user WHERE $column = :value";
+
+        $pdo = $this->database->getConnection();
+
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->bindValue(":value", $value);
 
         $stmt->execute();
+
+        return $stmt->fetch();
     }
 }

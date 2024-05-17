@@ -10,12 +10,24 @@ use App\Controllers\Home;
 use App\Middleware\AddJsonResponseHeader;
 use App\Middleware\RequireAPIKey;
 use App\Controllers\Signup;
+use App\Controllers\Login;
+use App\Middleware\ActivateSession;
 
-$app->get('/', Home::class);
+$app->group('', function (RouteCollectorProxy $group) {
 
-$app->get('/signup', [Signup::class, 'new']);
+    $group->get('/', Home::class);
+    
+    $group->get('/signup', [Signup::class, 'new']);
+    
+    $group->post('/signup', [Signup::class, 'create']);
+    
+    $group->get('/login', [Login::class, 'new']);
+    
+    $group->post('/login', [Login::class, 'create']);
 
-$app->post('/signup', [Signup::class, 'create']);
+    $group->get('/logout', [Login::class,'destroy']);
+})->add(ActivateSession::class);
+
 
 $app->group('/api', function(RouteCollectorProxy $group){
 

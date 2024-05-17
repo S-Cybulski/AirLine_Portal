@@ -6,8 +6,7 @@ CREATE TABLE user (
     user_type VARCHAR(255),
     password_hash VARCHAR(255),
     api_key VARCHAR(255),
-    api_key_hash VARCHAR(64),
-    UNIQUE KEY api_key_hash(api_key_hash)
+    UNIQUE KEY api_key(api_key)
 );
 
 -- Table: Staff
@@ -201,15 +200,15 @@ INSERT INTO Flight_Passenger (Flight_Num, Passenger_ID) VALUES
 (1008, 19);
 
 -- INSERT statements for passengers based on Flight data
-INSERT INTO `user` (ID, user_type, password_hash, api_key, api_key_hash)
-SELECT Passenger_ID, 'Passenger', MD5(CONCAT('passenger', Passenger_ID)), NULL, MD5(CONCAT('passenger', Passenger_ID, 'Passenger'))
+INSERT INTO `user` (ID, user_type, password_hash, api_key)
+SELECT Passenger_ID, 'Passenger', MD5(CONCAT('passenger', Passenger_ID)), MD5(CONCAT('passenger_api_key', Passenger_ID))
 FROM Passenger;
 
 -- INSERT statements for staff based on Flight data
-INSERT INTO `user` (ID, user_type, password_hash, api_key, api_key_hash)
-SELECT EMP_Num, 'Staff', MD5(CONCAT('staff', EMP_Num)), NULL, MD5(CONCAT('staff', EMP_Num, 'Staff'))
+INSERT INTO `user` (ID, user_type, password_hash, api_key)
+SELECT EMP_Num, 'Staff', MD5(CONCAT('staff', EMP_Num)), MD5(CONCAT('staff_api_key', EMP_Num)))
 FROM Staff;
 
 -- INSERT statement for admin user
-INSERT INTO `user` (ID, user_type, password_hash, api_key, api_key_hash)
-VALUES (100000, 'admin', MD5('admin_password'), NULL, MD5('admin_passwordadmin'));
+INSERT INTO `user` (ID, user_type, password_hash, api_key)
+VALUES (100000, 'admin', MD5('admin_password'), MD5('admin_api_key'));
