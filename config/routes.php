@@ -16,6 +16,7 @@ use App\Controllers\Passenger;
 use App\Controllers\Staff;
 use App\Controllers\Admin;
 use App\Controllers\Book;
+use App\Controllers\TravelHistory;
 
 $app->group('', function (RouteCollectorProxy $group) {
 
@@ -34,6 +35,8 @@ $app->group('', function (RouteCollectorProxy $group) {
     $group->get('/passenger/{id:[0-9]+}', Passenger::class);
 
     $group->post('/passenger/{id:[0-9]+}/book', Book::class);
+
+    $group->get('/passenger/{id:[0-9]+}/flight-history', TravelHistory::class);
 
     $group->get('/staff/{id:[0-9]+}', Staff::class);
 

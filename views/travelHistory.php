@@ -9,8 +9,7 @@
 
 <div class="banner-container">
     <img src="" alt="Plane">
-    <h1>Welcome to the Airline Portal</h1>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    <h1>Booked Flights</h1>
 </div>
 
 <div class="flight-container">
@@ -38,13 +37,6 @@
                 <td><?= $flight['Arrival_time'] ?></td>
                 <td><?= $flight['Intermediary_City'] ?? "" ?></td>
                 <td><?= $flight['Departure_time'] ?></td>
-                <td>
-                    <form action="<?php echo $_SERVER['REQUEST_URI'] ?>/book" method="POST">
-                        <input type="hidden" name="Flight_Num" value="<?= $flight['Flight_Num'] ?>">
-                        <input type="hidden" name="ID" value="<?= $_SESSION['user_id']?>">
-                        <button type="submit">Book</button>
-                    </form>
-                </td>
             </tr>
         <?php endforeach; ?>
     </table>

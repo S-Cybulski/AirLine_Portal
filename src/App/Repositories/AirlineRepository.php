@@ -131,4 +131,37 @@ class AirlineRepository
 
         return $flight_num;
     }
+
+    public function getBookedFlights(int $id) : array
+    {
+        $sql = 'SELECT Flight_NUM FROM Flight_Passenger WHERE Passenger_ID=:id';
+
+        $pdo = $this->database->getConnection();
+
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $sql = 'SELECT f.* 
+        FROM Flight f
+        INNER JOIN Flight_Passenger fp ON f.Flight_Num = fp.Flight_Num
+        WHERE fp.Passenger_ID = :id';
+
+        $pdo = $this->database->getConnection();
+
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $data;
+
+    }
 }
