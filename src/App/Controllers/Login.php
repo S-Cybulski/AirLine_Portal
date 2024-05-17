@@ -26,11 +26,28 @@ class Login
 
         $user = $this->repository->find('id', $data['id']);
 
+        $user_type = $this->repository->findUserType($data['id']);
+
         if ($user && password_verify($data['password'], $user['password_hash']))
         {
             $_SESSION['user_id'] = $user['id'];
 
-            return $response->withHeader('Location', '/')->withStatus(302);
+            $id = $data['id'];
+
+            if($user_type['user_type'] == 'passenger')
+            {
+                return $response->withHeader('Location', "/passenger/$id")->withStatus(302);
+            }
+
+            else if($user_type['user_type'] == 'staff')
+            {
+                return $response->withHeader('Location', "/staff/$id")->withStatus(302);
+            }
+
+            else
+            {
+                return $response->withHeader('Location', "/admin/$id")->withStatus(302);
+            }
         }
 
         return $this->view->render($response, 'login.php', ['data' => $data, 'error' => 'Invalid Login']);

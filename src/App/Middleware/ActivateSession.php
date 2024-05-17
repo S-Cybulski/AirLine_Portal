@@ -8,12 +8,18 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
 use Psr\Http\Message\ResponseInterface as Response;
 
-class AddJsonResponseHeader
+class ActivateSession
 {
     public function __invoke(Request $request, RequestHandler $handler): Response
     {
+        if(session_status() !== PHP_SESSION_ACTIVE) {
+
+            session_start();
+            
+        }
+
         $response = $handler->handle($request);
 
-        return $response->withHeader("Content-Type","application/json");
+        return $response;
     }
 }

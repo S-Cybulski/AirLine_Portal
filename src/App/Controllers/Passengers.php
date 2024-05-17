@@ -79,4 +79,18 @@ class Passengers
 
         return $response->withStatus(200);
     }
+
+    public function delete(Request $request, Response $response, string $id): Response
+    {
+        $rows = $this->repository->deletePassenger($id);
+
+        $body = json_encode([
+            'message' => 'Passenger record deleted',
+            'rows' => $rows
+        ]);
+
+        $response->getBody()->write($body);
+
+        return $response;
+    }
 }

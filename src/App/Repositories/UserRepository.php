@@ -65,4 +65,19 @@ class UserRepository
 
         return $stmt->fetch();
     }
+
+    public function findUserType(string $id): array|bool
+    {
+        $sql = "SELECT user_type FROM user WHERE id = :id";
+
+        $pdo = $this->database->getConnection();
+
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->bindValue(":id", $id, PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        return $stmt->fetch();
+    }
 }
