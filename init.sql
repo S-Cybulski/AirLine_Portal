@@ -1,6 +1,15 @@
 CREATE DATABASE IF NOT EXISTS airline_db;
 USE airline_db;
 
+CREATE TABLE user (
+    ID INT PRIMARY KEY,
+    user_type VARCHAR(255),
+    password_hash VARCHAR(255),
+    api_key VARCHAR(255),
+    api_key_hash VARCHAR(64),
+    UNIQUE KEY api_key_hash(api_key_hash)
+);
+
 -- Table: Staff
 CREATE TABLE Staff (
     EMP_Num INT PRIMARY KEY,
@@ -190,3 +199,17 @@ INSERT INTO Flight_Passenger (Flight_Num, Passenger_ID) VALUES
 (1007, 17),
 (1008, 18),
 (1008, 19);
+
+-- INSERT statements for passengers based on Flight data
+INSERT INTO `user` (ID, user_type, password_hash, api_key, api_key_hash)
+SELECT Passenger_ID, 'Passenger', MD5(CONCAT('passenger', Passenger_ID)), NULL, MD5(CONCAT('passenger', Passenger_ID, 'Passenger'))
+FROM Passenger;
+
+-- INSERT statements for staff based on Flight data
+INSERT INTO `user` (ID, user_type, password_hash, api_key, api_key_hash)
+SELECT EMP_Num, 'Staff', MD5(CONCAT('staff', EMP_Num)), NULL, MD5(CONCAT('staff', EMP_Num, 'Staff'))
+FROM Staff;
+
+-- INSERT statement for admin user
+INSERT INTO `user` (ID, user_type, password_hash, api_key, api_key_hash)
+VALUES (100000, 'admin', MD5('admin_password'), NULL, MD5('admin_passwordadmin'));

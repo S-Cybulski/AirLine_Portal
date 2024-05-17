@@ -13,16 +13,16 @@
 
 <form method="post" action="/signup">
     <label for="First_name">First Name:</label>
-    <input type="text" name="First_name" id="First_name">
+    <input type="text" name="First_name" id="First_name" value="<?=htmlspecialchars($data['First_name'] ?? '')?>">
 
     <label for="Last_name">Last Name:</label>
-    <input type="text" name="Last_name" id="Last_name">
+    <input type="text" name="Last_name" id="Last_name" value="<?=htmlspecialchars($data['Last_name'] ?? '')?>">
     
     <label for="Address">Address:</label>
-    <input type="text" name="Address" id="Address">
+    <input type="text" name="Address" id="Address" value="<?=htmlspecialchars($data['Address'] ?? '')?>">
 
     <label for="Phone_Number">Phone Number:</label>
-    <input type="text" name="Phone_Number" id="Phone_Number">
+    <input type="text" name="Phone_Number" id="Phone_Number" value="<?=htmlspecialchars($data['Phone_Number'] ?? '')?>">
 
     <label for="password">Password:</label>
     <input type="password" name="password" id="password">
