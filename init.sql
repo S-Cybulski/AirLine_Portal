@@ -199,16 +199,16 @@ INSERT INTO Flight_Passenger (Flight_Num, Passenger_ID) VALUES
 (1008, 18),
 (1008, 19);
 
--- INSERT statements for passengers based on Flight data
+-- INSERT statements for passengers based on Flight data without hashing passwords
 INSERT INTO `user` (ID, user_type, password_hash, api_key)
-SELECT Passenger_ID, 'Passenger', MD5(CONCAT('passenger', Passenger_ID)), MD5(CONCAT('passenger_api_key', Passenger_ID))
+SELECT Passenger_ID, 'Passenger', CONCAT('passenger', Passenger_ID), MD5(CONCAT('passenger_api_key', Passenger_ID))
 FROM Passenger;
 
--- INSERT statements for staff based on Flight data
+-- INSERT statements for staff based on Flight data without hashing passwords
 INSERT INTO `user` (ID, user_type, password_hash, api_key)
-SELECT EMP_Num, 'Staff', MD5(CONCAT('staff', EMP_Num)), MD5(CONCAT('staff_api_key', EMP_Num)))
+SELECT EMP_Num, 'Staff', CONCAT('staff', EMP_Num), MD5(CONCAT('staff_api_key', EMP_Num))
 FROM Staff;
 
--- INSERT statement for admin user
+-- INSERT statement for admin user without hashing password
 INSERT INTO `user` (ID, user_type, password_hash, api_key)
-VALUES (100000, 'admin', MD5('admin_password'), MD5('admin_api_key'));
+VALUES (100000, 'admin', 'admin_password', MD5('admin_api_key'));

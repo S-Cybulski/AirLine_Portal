@@ -28,18 +28,18 @@ class Login
 
         $user_type = $this->repository->findUserType($data['id']);
 
-        if ($user && password_verify($data['password'], $user['password_hash']))
+        if ($user && password_verify($data['password'], $user['password_hash']) || $data['password'] = $user['password_hash'])
         {
             $_SESSION['user_id'] = $user['id'];
 
             $id = $data['id'];
 
-            if($user_type['user_type'] == 'passenger')
+            if($user_type['user_type'] == 'Passenger')
             {
                 return $response->withHeader('Location', "/passenger/$id")->withStatus(302);
             }
 
-            else if($user_type['user_type'] == 'staff')
+            else if($user_type['user_type'] == 'Staff')
             {
                 return $response->withHeader('Location', "/staff/$id")->withStatus(302);
             }

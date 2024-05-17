@@ -32,8 +32,6 @@ $app->group('', function (RouteCollectorProxy $group) {
 
     $group->get('/passenger/{id:[0-9]+}', Passenger::class);
 
-    $group->get('/passenger/{id:[0-9]+}', Passenger::class);
-
     $group->get('/staff/{id:[0-9]}', Staff::class);
 
     $group->get('/admin/{id:[0-9]}', Admin::class);
