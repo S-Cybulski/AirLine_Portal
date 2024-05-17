@@ -46,7 +46,7 @@ class Login
 
             else
             {
-                return $response->withHeader('Location', "/admin/$id")->withStatus(302);
+                return $response->withHeader('Location', "/admin/$id/passengers")->withStatus(302);
             }
         }
 

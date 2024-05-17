@@ -162,6 +162,32 @@ class AirlineRepository
         $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
-
     }
+
+    public function getAllStaff() : array
+    {
+        $sql = 'SELECT * FROM Staff';
+
+        $pdo = $this->database->getConnection();
+
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getAllAircraft() : array
+    {
+        $sql = 'SELECT * FROM Aircraft';
+
+        $pdo = $this->database->getConnection();
+
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 }
