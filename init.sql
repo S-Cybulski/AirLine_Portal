@@ -63,6 +63,11 @@ CREATE TABLE Flight_Passenger (
     FOREIGN KEY (Passenger_ID) REFERENCES Passenger(Passenger_ID)
 );
 
+-- Modify Flight_Num and Passenger_ID columns to allow duplicates
+ALTER TABLE Flight_Passenger MODIFY Flight_Num INT;
+ALTER TABLE Flight_Passenger MODIFY Passenger_ID INT;
+
+
 -- Table: Flight_crew
 CREATE TABLE Flight_crew (
     Flight_Num INT,

@@ -113,4 +113,22 @@ class AirlineRepository
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function bookFlight(int $id, int $flight_num)
+    {
+        $sql = 'INSERT INTO Flight_Passenger (Flight_Num, Passenger_ID)
+                VALUES (:Flight_Num, :Passenger_ID)';
+
+        $pdo = $this->database->getConnection();
+
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->bindValue(':Flight_Num', $flight_num, PDO::PARAM_INT);
+
+        $stmt->bindValue(':Passenger_ID', $id, PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        return $flight_num;
+    }
 }

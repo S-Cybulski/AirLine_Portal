@@ -34,7 +34,13 @@
                 <td><?= $flight['Arrival_time'] ?></td>
                 <td><?= $flight['Intermediary_City'] ?? "" ?></td>
                 <td><?= $flight['Departure_time'] ?></td>
-                <td><button action="/book">Book</button></td>
+                <td>
+                    <form action="<?php echo $_SERVER['REQUEST_URI'] ?>/book" method="POST">
+                        <input type="hidden" name="Flight_Num" value="<?= $flight['Flight_Num'] ?>">
+                        <input type="hidden" name="ID" value="<?= $_SESSION['user_id']?>">
+                        <button type="submit">Book</button>
+                    </form>
+                </td>
             </tr>
         <?php endforeach; ?>
     </table>

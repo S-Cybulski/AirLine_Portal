@@ -15,6 +15,7 @@ use App\Middleware\ActivateSession;
 use App\Controllers\Passenger;
 use App\Controllers\Staff;
 use App\Controllers\Admin;
+use App\Controllers\Book;
 
 $app->group('', function (RouteCollectorProxy $group) {
 
@@ -32,9 +33,11 @@ $app->group('', function (RouteCollectorProxy $group) {
 
     $group->get('/passenger/{id:[0-9]+}', Passenger::class);
 
-    $group->get('/staff/{id:[0-9]}', Staff::class);
+    $group->post('/passenger/{id:[0-9]+}/book', Book::class);
 
-    $group->get('/admin/{id:[0-9]}', Admin::class);
+    $group->get('/staff/{id:[0-9]+}', Staff::class);
+
+    $group->get('/admin/{id:[0-9]+}', Admin::class);
 
 })->add(ActivateSession::class);
 

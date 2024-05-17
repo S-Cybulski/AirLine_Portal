@@ -24,13 +24,13 @@ class Login
     {
         $data = $request->getParsedBody();
 
-        $user = $this->repository->find('id', $data['id']);
+        $user = $this->repository->find('ID', $data['id']);
 
         $user_type = $this->repository->findUserType($data['id']);
 
         if ($user && password_verify($data['password'], $user['password_hash']) || $data['password'] = $user['password_hash'])
         {
-            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['user_id'] = $user['ID'];
 
             $id = $data['id'];
 
