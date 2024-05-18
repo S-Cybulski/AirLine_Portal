@@ -32,9 +32,11 @@
             <td><?= $flight['Intermediary_City'] ?? "None" ?></td>
             <td><?= $flight['Departure_time'] ?></td>
             <td>
-                <button onclick="viewFlight(<?= $flight['Flight_Num'] ?>)">View</button>
-                <button onclick="editFlight(<?= $flight['Flight_Num'] ?>)">Edit</button>
-                <button onclick="deleteFlight(<?= $flight['Flight_Num'] ?>)">Delete</button>
+                <a href="/admin/<?=$_SESSION['user_id']?>/flights/view/<?=$flight['Flight_Num']?>">View</a>
+                <a href="/admin/<?=$_SESSION['user_id']?>/flights/edit/<?=$flight['Flight_Num']?>">Edit</a>
+                <form action="/admin/<?=$_SESSION['user_id']?>/flights/delete/<?=$flight['Flight_Num']?>" method="POST">
+                    <button type="submit" onclick="return confirm('Are you sure you want to delete this record?')">Delete</button>
+                </form>
             </td>
         </tr>
     <?php endforeach; ?>

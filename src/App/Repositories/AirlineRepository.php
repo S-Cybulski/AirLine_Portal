@@ -36,6 +36,21 @@ class AirlineRepository
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    public function getFlightById(int $id): array|bool
+    {
+        $sql = 'SELECT * FROM Flight WHERE Flight_Num = :id';
+
+        $pdo = $this->database->getConnection();
+
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
     public function createPassenger(array $data) : string
     {
         $sql = 'INSERT INTO Passenger (First_name, Last_name, Address, Phone_Number)

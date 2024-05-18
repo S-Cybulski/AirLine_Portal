@@ -18,6 +18,7 @@ use App\Controllers\Admin;
 use App\Controllers\Book;
 use App\Controllers\TravelHistory;
 use App\Middleware\GetPassengerById;
+use App\Middleware\GetFlightById;
 
 $app->group('', function (RouteCollectorProxy $group) {
 
@@ -52,6 +53,14 @@ $app->group('', function (RouteCollectorProxy $group) {
     $group->post('/admin/{id:[0-9]+}/passengers/delete/{passengerId:[0-9]+}', Admin::class . ':deletePassengerRecord')->add(GetPassengerById::class);
 
     $group->get('/admin/{id:[0-9]+}/flights', Admin::class . ':viewFlights');
+
+    $group->get('/admin/{id:[0-9]+}/flights/view/{flight-num:[0-9]+}', Admin::class . ':viewFlightRecord')->add(GetFlightById::class);
+
+    $group->get('/admin/{id:[0-9]+}/flights/edit/{flight-num:[0-9]+}', Admin::class . ':viewEditFlightRecord')->add(GetFlightById::class);
+
+    $group->post('/admin/{id:[0-9]+}/flights/edit/{flight-num:[0-9]+}', Admin::class . ':editFlightRecord');
+
+    $group->post('/admin/{id:[0-9]+}/flights/delete/{flight-num:[0-9]+}', Admin::class . ':deleteFlightRecord')->add(GetFlightById::class);
 
     $group->get('/admin/{id:[0-9]+}/aircraft', Admin::class . ':viewAircraft');
 

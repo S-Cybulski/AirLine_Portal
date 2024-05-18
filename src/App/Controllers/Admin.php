@@ -68,6 +68,13 @@ class Admin
     {
         $body = $request->getParsedBody();
 
+        $this->validator->mapFieldsRules([
+            'First_name' => ['required'],
+            'Last_name' => ['required'],
+            'Address' => ['required'],
+            'Phone_Number' => ['required']
+        ]);
+
         $this->validator = $this->validator->withData($body);
 
         if ( ! $this->validator->validate()) {
@@ -91,4 +98,45 @@ class Admin
         return $response->withHeader('Location', "/admin/{$_SESSION['user_id']}/passengers")->withStatus(302);
     }
 
+    public function viewEditFlightRecord(Request $request, Response $response): Response
+    {
+        $flight = $request->getAttribute('flight');
+
+        return $this->view->render($response,"adminFlightEdit.php", ['data' => $flight]);
+    }
+
+    public function editFlightRecord(Request $request, Response $response): Response
+    {
+        $body = $request->getParsedBody();
+
+        $this->validator->mapFieldsRules([
+            'Origin' => ['required'],
+            'Destination' => ['required'],
+            'Date' => ['required'],
+            'Arrival_time' => ['required'],
+            'Departure_time' => ['required']
+        ]);
+
+        $this->validator = $this->validator->withData($body);
+
+        if ( ! $this->validator->validate()) {
+            $errors = $this->validator->errors();
+
+            return $this->view->render($response, 'adminFlightEdit.php', ['data' => $body, 'errors' => $errors]);
+        }
+
+        $this->repository->updatePassenger((int) $body['Flight_Num'], $body);
+
+        return $response->withHeader('Location', "/admin/{$_SESSION['user_id']}/flights/view/{$body['Flight_Num']}")->withStatus(302);
+
+    }
+
+    public function deleteFlightRecord(Request $request, Response $response): Response
+    {
+        $passenger = $request->getAttribute("flight");
+
+        $this->repository->deletePassenger((string) $passenger['Flight_Num']);
+
+        return $response->withHeader('Location', "/admin/{$_SESSION['user_id']}/flights")->withStatus(302);
+    }
 }
