@@ -98,6 +98,14 @@ class Admin
         return $response->withHeader('Location', "/admin/{$_SESSION['user_id']}/passengers")->withStatus(302);
     }
 
+    public function viewFlightRecord(Request $request, Response $response): Response
+    {
+        $flight = $request->getAttribute('flight');
+
+        return $this->view->render($response,"adminFlightView.php", ['data' => $flight]);
+    }
+
+
     public function viewEditFlightRecord(Request $request, Response $response): Response
     {
         $flight = $request->getAttribute('flight');

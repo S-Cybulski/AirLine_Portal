@@ -42,30 +42,40 @@ $app->group('', function (RouteCollectorProxy $group) {
 
     $group->get('/staff/{id:[0-9]+}', Staff::class);
 
-    $group->get('/admin/{id:[0-9]+}/passengers', Admin::class . ':viewPassengers');
+    $group->group('/admin/{id:[0-9]+}', function (RouteCollectorProxy $group) {
 
-    $group->get('/admin/{id:[0-9]+}/passengers/view/{passengerId:[0-9]+}', Admin::class . ':viewPassengerRecord')->add(GetPassengerById::class);
+        $group->group('/passengers', function (RouteCollectorProxy $group) {
 
-    $group->get('/admin/{id:[0-9]+}/passengers/edit/{passengerId:[0-9]+}', Admin::class . ':viewEditPassengerRecord')->add(GetPassengerById::class);
+            $group->get('', Admin::class . ':viewPassengers');
 
-    $group->post('/admin/{id:[0-9]+}/passengers/edit/{passengerId:[0-9]+}', Admin::class . ':editPassengerRecord');
+            $group->get('/view/{passengerId:[0-9]+}', Admin::class . ':viewPassengerRecord')->add(GetPassengerById::class);
 
-    $group->post('/admin/{id:[0-9]+}/passengers/delete/{passengerId:[0-9]+}', Admin::class . ':deletePassengerRecord')->add(GetPassengerById::class);
+            $group->get('/edit/{passengerId:[0-9]+}', Admin::class . ':viewEditPassengerRecord')->add(GetPassengerById::class);
 
-    $group->get('/admin/{id:[0-9]+}/flights', Admin::class . ':viewFlights');
+            $group->post('/edit/{passengerId:[0-9]+}', Admin::class . ':editPassengerRecord');
 
-    $group->get('/admin/{id:[0-9]+}/flights/view/{flight-num:[0-9]+}', Admin::class . ':viewFlightRecord')->add(GetFlightById::class);
+            $group->post('/delete/{passengerId:[0-9]+}', Admin::class . ':deletePassengerRecord')->add(GetPassengerById::class);
 
-    $group->get('/admin/{id:[0-9]+}/flights/edit/{flight-num:[0-9]+}', Admin::class . ':viewEditFlightRecord')->add(GetFlightById::class);
+        });
 
-    $group->post('/admin/{id:[0-9]+}/flights/edit/{flight-num:[0-9]+}', Admin::class . ':editFlightRecord');
+        $group->group('/flights', function (RouteCollectorProxy $group) {
 
-    $group->post('/admin/{id:[0-9]+}/flights/delete/{flight-num:[0-9]+}', Admin::class . ':deleteFlightRecord')->add(GetFlightById::class);
+            $group->get('', Admin::class . ':viewFlights');
 
-    $group->get('/admin/{id:[0-9]+}/aircraft', Admin::class . ':viewAircraft');
+            $group->get('/view/{flight-num:[0-9]+}', Admin::class . ':viewFlightRecord')->add(GetFlightById::class);
 
-    $group->get('/admin/{id:[0-9]+}/staff', Admin::class . ':viewStaff');
+            $group->get('/edit/{flight-num:[0-9]+}', Admin::class . ':viewEditFlightRecord')->add(GetFlightById::class);
 
+            $group->post('/edit/{flight-num:[0-9]+}', Admin::class . ':editFlightRecord');
+
+            $group->post('/delete/{flight-num:[0-9]+}', Admin::class . ':deleteFlightRecord')->add(GetFlightById::class);
+
+        });
+
+        $group->get('/aircraft', Admin::class . ':viewAircraft');
+
+        $group->get('/staff', Admin::class . ':viewStaff');
+    });
 })->add(ActivateSession::class);
 
 
