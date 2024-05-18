@@ -49,7 +49,7 @@ $app->group('', function (RouteCollectorProxy $group) {
 
     $group->post('/admin/{id:[0-9]+}/passengers/edit/{passengerId:[0-9]+}', Admin::class . ':editPassengerRecord');
 
-    $group->post('/admin/{id:[0-9]+}/passengers/delete/{passengerId:[0-9]+}', Admin::class . ':deletePassengerRecord');
+    $group->post('/admin/{id:[0-9]+}/passengers/delete/{passengerId:[0-9]+}', Admin::class . ':deletePassengerRecord')->add(GetPassengerById::class);
 
     $group->get('/admin/{id:[0-9]+}/flights', Admin::class . ':viewFlights');
 

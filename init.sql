@@ -23,7 +23,7 @@ CREATE TABLE Staff (
 CREATE TABLE Pilot (
     EMP_Num INT PRIMARY KEY,
     Type_rating VARCHAR(255),
-    FOREIGN KEY (EMP_Num) REFERENCES Staff(EMP_Num)
+    FOREIGN KEY (EMP_Num) REFERENCES Staff(EMP_Num) ON DELETE CASCADE
 );
 
 -- Table: Aircraft
@@ -43,7 +43,7 @@ CREATE TABLE Flight (
     Intermediary_City VARCHAR(255),
     Departure_time TIME,
     Serial_Num INT,
-    FOREIGN KEY (Serial_Num) REFERENCES Aircraft(Serial_Num)
+    FOREIGN KEY (Serial_Num) REFERENCES Aircraft(Serial_Num) ON DELETE CASCADE
 );
 
 -- Table: Passenger
@@ -59,8 +59,8 @@ CREATE TABLE Passenger (
 CREATE TABLE Flight_Passenger (
     Flight_Num INT,
     Passenger_ID INT,
-    FOREIGN KEY (Flight_Num) REFERENCES Flight(Flight_Num),
-    FOREIGN KEY (Passenger_ID) REFERENCES Passenger(Passenger_ID)
+    FOREIGN KEY (Flight_Num) REFERENCES Flight(Flight_Num) ON DELETE CASCADE,
+    FOREIGN KEY (Passenger_ID) REFERENCES Passenger(Passenger_ID) ON DELETE CASCADE
 );
 
 -- Modify Flight_Num and Passenger_ID columns to allow duplicates
@@ -72,8 +72,8 @@ ALTER TABLE Flight_Passenger MODIFY Passenger_ID INT;
 CREATE TABLE Flight_crew (
     Flight_Num INT,
     EMP_Num INT,
-    FOREIGN KEY (Flight_Num) REFERENCES Flight(Flight_Num),
-    FOREIGN KEY (EMP_Num) REFERENCES Staff(EMP_Num)
+    FOREIGN KEY (Flight_Num) REFERENCES Flight(Flight_Num) ON DELETE CASCADE,
+    FOREIGN KEY (EMP_Num) REFERENCES Staff(EMP_Num) ON DELETE CASCADE
 );
 
 -- Table: Flight_City
@@ -81,7 +81,7 @@ CREATE TABLE Flight_City (
     Flight_Num INT,
     City VARCHAR(255),
     Intermediary_City VARCHAR(255),
-    FOREIGN KEY (Flight_Num) REFERENCES Flight(Flight_Num)
+    FOREIGN KEY (Flight_Num) REFERENCES Flight(Flight_Num) ON DELETE CASCADE
 );
 
 INSERT INTO Aircraft (Serial_Num, Manufacturer, Model) VALUES
