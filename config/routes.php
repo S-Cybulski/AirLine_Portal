@@ -42,11 +42,11 @@ $app->group('', function (RouteCollectorProxy $group) {
 
     $group->get('/admin/{id:[0-9]+}/passengers', Admin::class . ':viewPassengers');
 
-    $group->get('/admin/{id:[0-9]+}/flights', Admin::class);
+    $group->get('/admin/{id:[0-9]+}/flights', Admin::class . ':viewFlights');
 
-    $group->get('/admin/{id:[0-9]+}/aircraft', Admin::class);
+    $group->get('/admin/{id:[0-9]+}/aircraft', Admin::class . ':viewAircraft');
 
-    $group->get('/admin/{id:[0-9]+}/staff', Admin::class);
+    $group->get('/admin/{id:[0-9]+}/staff', Admin::class . ':viewStaff');
 
 })->add(ActivateSession::class);
 

@@ -26,20 +26,20 @@ class Admin
     {
         $data = $this->repository->getAllStaff();
 
-        return $this->view->render($response,"adminPassenger.php", ['data' => $data]);
+        return $this->view->render($response,"adminStaff.php", ['data' => $data]);
     }
 
     public function viewAircraft(Request $request, Response $response): Response
     {
         $data = $this->repository->getAllAircraft();
 
-        return $this->view->render($response,"adminPassenger.php", ['data' => $data]);
+        return $this->view->render($response,"adminAircraft.php", ['data' => $data]);
     }
 
     public function viewFlights(Request $request, Response $response): Response
     {
         $data = $this->repository->getFlightData();
 
-        return $this->view->render($response,"adminPassenger.php", ['data' => $data]);
+        return $this->view->render($response,"adminFlights.php", ['data' => $data]);
     }
 }

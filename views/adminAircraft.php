@@ -7,30 +7,26 @@
     </div>
 </div>
 
-<h1>Passenger View</h1>
+<h1>Aircraft View</h1>
 
-<input type="text" id="searchInput" onkeyup="searchPassenger()" placeholder="Search for passengers..">
+<input type="text" id="searchInput" onkeyup="searchAircraft()" placeholder="Search for aircraft by Serial Number">
 
-<table id="passengerTable">
+<table id="aircraftTable">
     <tr>
-        <th>Passenger ID</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Address</th>
-        <th>Phone Number</th>
+        <th>Serial Number</th>
+        <th>Manufacturer</th>
+        <th>Model</th>
         <th>Actions</th>
     </tr>
-    <?php foreach ($data as $passenger): ?>
+    <?php foreach ($data as $aircraft): ?>
         <tr>
-            <td><?= $passenger['Passenger_ID'] ?></td>
-            <td><?= $passenger['First_name'] ?></td>
-            <td><?= $passenger['Last_name'] ?></td>
-            <td><?= $passenger['Address'] ?></td>
-            <td><?= $passenger['Phone_Number'] ?></td>
+            <td><?= $aircraft['Serial_Num'] ?></td>
+            <td><?= $aircraft['Manufacturer'] ?></td>
+            <td><?= $aircraft['Model'] ?></td>
             <td>
-                <button onclick="viewPassenger(<?= $passenger['Passenger_ID'] ?>)">View</button>
-                <button onclick="editPassenger(<?= $passenger['Passenger_ID'] ?>)">Edit</button>
-                <button onclick="deletePassenger(<?= $passenger['Passenger_ID'] ?>)">Delete</button>
+                <button onclick="viewAircraft(<?= $aircraft['Serial_Num'] ?>)">View</button>
+                <button onclick="editAircraft(<?= $aircraft['Serial_Num'] ?>)">Edit</button>
+                <button onclick="deleteAircraft(<?= $aircraft['Serial_Num'] ?>)">Delete</button>
             </td>
         </tr>
     <?php endforeach; ?>
@@ -39,11 +35,11 @@
 <footer>@software engineering 2024</footer>
 
 <script>
-    function searchPassenger() {
+    function searchAircraft() {
         var input, filter, table, tr, td, i, txtValue;
         input = document.getElementById("searchInput");
         filter = input.value.toUpperCase();
-        table = document.getElementById("passengerTable");
+        table = document.getElementById("aircraftTable");
         tr = table.getElementsByTagName("tr");
         for (i = 0; i < tr.length; i++) {
             td = tr[i].getElementsByTagName("td")[0];
@@ -58,3 +54,4 @@
         }
     }
 </script>
+
