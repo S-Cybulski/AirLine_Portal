@@ -45,6 +45,8 @@ $app->group('', function (RouteCollectorProxy $group) {
 
     $group->get('/admin/{id:[0-9]+}/passengers/view/{passengerId:[0-9]+}', Admin::class . ':viewPassengerRecord')->add(GetPassengerById::class);
 
+    $group->get('/admin/{id:[0-9]+}/passengers/edit/{passengerId:[0-9]+}', Admin::class . ':editPassengerRecord')->add(GetPassengerById::class);
+
     $group->get('/admin/{id:[0-9]+}/flights', Admin::class . ':viewFlights');
 
     $group->get('/admin/{id:[0-9]+}/aircraft', Admin::class . ':viewAircraft');

@@ -49,4 +49,11 @@ class Admin
 
         return $this->view->render($response,"adminPassengerView.php", ['data' => $passenger]);
     }
+
+    public function editPassengerRecord(Request $request, Response $response): Response
+    {
+        $passenger = $request->getAttribute('passenger');
+
+        return $this->view->render($response,"adminPassengerEdit.php", ['data' => $passenger]);
+    }
 }
