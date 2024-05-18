@@ -28,9 +28,9 @@
             <td><?= $passenger['Address'] ?></td>
             <td><?= $passenger['Phone_Number'] ?></td>
             <td>
-                <button onclick="viewPassenger(<?= $passenger['Passenger_ID'] ?>)">View</button>
-                <button onclick="editPassenger(<?= $passenger['Passenger_ID'] ?>)">Edit</button>
-                <button onclick="deletePassenger(<?= $passenger['Passenger_ID'] ?>)">Delete</button>
+                <a href="/admin/<?=$_SESSION['user_id']?>/passengers/view/<?=$passenger['Passenger_ID']?>">View</a>
+                <a href="/admin/<?=$_SESSION['user_id']?>/passengers/edit/<?=$passenger['Passenger_ID']?>">Edit</a>
+                <a href="/admin/<?=$_SESSION['user_id']?>/passengers/delete/<?=$passenger['Passenger_ID']?>">Delete</a>
             </td>
         </tr>
     <?php endforeach; ?>

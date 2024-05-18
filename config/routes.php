@@ -17,6 +17,7 @@ use App\Controllers\Staff;
 use App\Controllers\Admin;
 use App\Controllers\Book;
 use App\Controllers\TravelHistory;
+use App\Middleware\GetPassengerById;
 
 $app->group('', function (RouteCollectorProxy $group) {
 
@@ -41,6 +42,8 @@ $app->group('', function (RouteCollectorProxy $group) {
     $group->get('/staff/{id:[0-9]+}', Staff::class);
 
     $group->get('/admin/{id:[0-9]+}/passengers', Admin::class . ':viewPassengers');
+
+    $group->get('/admin/{id:[0-9]+}/passengers/view/{passengerId:[0-9]+}', Admin::class . ':viewPassengerRecord')->add(GetPassengerById::class);
 
     $group->get('/admin/{id:[0-9]+}/flights', Admin::class . ':viewFlights');
 

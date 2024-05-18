@@ -42,4 +42,11 @@ class Admin
 
         return $this->view->render($response,"adminFlights.php", ['data' => $data]);
     }
+
+    public function viewPassengerRecord(Request $request, Response $response): Response
+    {
+        $passenger = $request->getAttribute('passenger');
+
+        return $this->view->render($response,"adminPassengerView.php", ['data' => $passenger]);
+    }
 }
