@@ -14,12 +14,6 @@ class Admin
 {
     public function __construct(private PhpRenderer $view, private AirlineRepository $repository, private Validator $validator)
     {
-        $this->validator->mapFieldsRules([
-            'First_name' => ['required'],
-            'Last_name' => ['required'],
-            'Address' => ['required'],
-            'Phone_Number' => ['required']
-        ]);
     }
 
     public function viewPassengers(Request $request, Response $response): Response
@@ -133,7 +127,7 @@ class Admin
             return $this->view->render($response, 'adminFlightEdit.php', ['data' => $body, 'errors' => $errors]);
         }
 
-        $this->repository->updatePassenger((int) $body['Flight_Num'], $body);
+        $this->repository->updateFlight((int) $body['Flight_Num'], $body);
 
         return $response->withHeader('Location', "/admin/{$_SESSION['user_id']}/flights/view/{$body['Flight_Num']}")->withStatus(302);
 
@@ -141,9 +135,9 @@ class Admin
 
     public function deleteFlightRecord(Request $request, Response $response): Response
     {
-        $passenger = $request->getAttribute("flight");
+        $flight = $request->getAttribute("flight");
 
-        $this->repository->deletePassenger((string) $passenger['Flight_Num']);
+        $this->repository->deleteFlight((string) $flight['Flight_Num']);
 
         return $response->withHeader('Location', "/admin/{$_SESSION['user_id']}/flights")->withStatus(302);
     }

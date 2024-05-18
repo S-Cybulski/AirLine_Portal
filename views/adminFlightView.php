@@ -29,7 +29,9 @@
             <td><?= $data['Serial_Num'] ?></td>
         </tr>
 </table>
-<a href="/admin/<?=$_SESSION['user_id']?>/flights/edit/<?=$data['Passenger_ID']?>">Edit</a>
-<a href="/admin/<?=$_SESSION['user_id']?>/flights/delete/<?=$data['Passenger_ID']?>">Delete</a>
+<a href="/admin/<?=$_SESSION['user_id']?>/flights/edit/<?=$data['Flight_Num']?>">Edit</a>
+<form action="/admin/<?=$_SESSION['user_id']?>/flights/delete/<?=$data['Flight_Num']?>" method="POST">
+    <button type="submit" onclick="return confirm('Are you sure you want to delete this record?')">Delete</button>
+</form>
 
 <footer>@software engineering 2024</footer>

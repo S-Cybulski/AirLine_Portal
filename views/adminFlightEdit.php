@@ -7,7 +7,7 @@
     </div>
 </div>
 
-<h1>Edit Passenger Record Id: <?=$data['Passenger_ID']?></h1>
+<h1>Edit Flight Record Id: <?=$data['Flight_Num']?></h1>
 
 <?php if (isset($errors)): ?>
     <ul>
@@ -21,10 +21,8 @@
 <?php endif; ?>
 
 <form id="edit-form" method="POST" action="/admin/<?=$_SESSION['user_id']?>/flights/edit/<?=$data['Serial_Num']?>">
-    <label for="id">ID:</label><br>
-    <input type="number" id="ID" name="Serial_Num" value="<?= $data['Serial_Num'] ?>" readonly><br>
-    <label for="firstName">Flight Number:</label><br>
-    <input type="text" id="flightNumber" name="Flight_Num" value="<?= $data['Flight_Num'] ?>"><br>
+    <label for="id">Flight Number:</label><br>
+    <input type="number" id="ID" name="Flight_Num" value="<?= $data['Flight_Num'] ?>" readonly><br>
     <label for="lastName">Origin:</label><br>
     <input type="text" id="origin" name="Origin" value="<?= $data['Origin'] ?>"><br>
     <label for="address">Destination:</label><br>
@@ -37,6 +35,7 @@
     <input type="text" id="intermediaryCity" name="Intermediary_City" value="<?= $data['Intermediary_City'] ?>"><br>
     <label for="departureTime">Departure Time:</label><br>
     <input type="text" id="departureTime" name="Departure_time" value="<?= $data['Departure_time'] ?>"><br><br>
+    <input type="number" id="ID" name="Serial_Num" value="<?= $data['Serial_Num'] ?>"><br>
     <input type="hidden" name="Flight_Num" value="<?= $data['Flight_Num'] ?>">
     <button type="submit">Save Changes</button>
 </form>

@@ -101,9 +101,61 @@ class AirlineRepository
         return $stmt->rowCount();
     }
 
+    public function updateFlight(int $id, array $data) : int
+    {
+        $sql = 'UPDATE Flight
+                SET Origin=:origin, 
+                    Destination=:destination, 
+                    Date=:date,
+                    Arrival_time=:arrival_time,
+                    Intermediary_City=:intermediary_city,
+                    Departure_time=:departure_time,
+                    Serial_Num=:serial_num
+                WHERE Flight_Num = :id';
+
+        $pdo = $this->database->getConnection();
+
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->bindValue(':origin', $data['Origin'], PDO::PARAM_STR);
+
+        $stmt->bindValue(':destination', $data['Destination'], PDO::PARAM_STR);
+
+        $stmt->bindValue(':date', $data['Date'], PDO::PARAM_STR);
+
+        $stmt->bindValue(':arrival_time', $data['Arrival_time'], PDO::PARAM_STR);
+
+        $stmt->bindValue(':intermediary_city', $data['Intermediary_City'], PDO::PARAM_STR);
+
+        $stmt->bindValue(':departure_time', $data['Departure_time'], PDO::PARAM_STR);
+
+        $stmt->bindValue(':serial_num', $data['Serial_Num'], PDO::PARAM_STR);
+
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        return $stmt->rowCount();
+    }
+
     public function deletePassenger(string $id) : int
     {
         $sql = 'DELETE FROM Passenger WHERE Passenger_ID = :id';
+
+        $pdo = $this->database->getConnection();
+
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        return $stmt->rowCount();
+    }
+
+    public function deleteFlight(string $id) : int
+    {
+        $sql = 'DELETE FROM Flight WHERE Flight_Num = :id';
 
         $pdo = $this->database->getConnection();
 
