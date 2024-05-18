@@ -30,7 +30,9 @@
             <td>
                 <a href="/admin/<?=$_SESSION['user_id']?>/passengers/view/<?=$passenger['Passenger_ID']?>">View</a>
                 <a href="/admin/<?=$_SESSION['user_id']?>/passengers/edit/<?=$passenger['Passenger_ID']?>">Edit</a>
-                <a href="/admin/<?=$_SESSION['user_id']?>/passengers/delete/<?=$passenger['Passenger_ID']?>">Delete</a>
+                <form action="/admin/<?=$_SESSION['user_id']?>/passengers/delete/<?=$passenger['Passenger_ID']?>" method="POST">
+                    <button type="submit" onclick="return confirm('Are you sure you want to delete this record?')">Delete</button>
+                </form>
             </td>
         </tr>
     <?php endforeach; ?>

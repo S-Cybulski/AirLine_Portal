@@ -25,7 +25,7 @@
             <td><?= $data['Phone_Number'] ?></td>
         </tr>
 </table>
-<button href="/passenger/<?=$_SESSION['user_id']?>/edit/<?=$data['Passenger_ID']?>">Edit</button>
-<button href="/passenger/<?=$_SESSION['user_id']?>/delete/<?=$data['Passenger_ID']?>">Delete</button>
+<a href="/admin/<?=$_SESSION['user_id']?>/passengers/edit/<?=$data['Passenger_ID']?>">Edit</a>
+<a href="/admin/<?=$_SESSION['user_id']?>/delete/<?=$data['Passenger_ID']?>">Delete</a>
 
 <footer>@software engineering 2024</footer>
