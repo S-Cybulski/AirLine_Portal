@@ -43,24 +43,72 @@
 </table>
 
 <footer>@software engineering 2024</footer>
-
 <script>
+    var currentIndex = 0; // Keep track of the current index of the displayed record
+
+    function searchFlight() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("searchInput2");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("flightTable");
+        tr = table.getElementsByTagName("tr");
+
+        // Reset currentIndex when filtering
+        currentIndex = 0;
+
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[1]; // Search by Origin (index 1)
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    if (currentIndex === 0) {
+                        tr[i].style.display = ""; // Show the first matching record
+                    } else {
+                        tr[i].style.display = "none"; // Hide other matching records
+                    }
+                    currentIndex++;
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+
+        // If no matches found, show the first record
+        if (currentIndex === 0) {
+            tr[1].style.display = "";
+        }
+    }
+
     function searchStaff() {
         var input, filter, table, tr, td, i, txtValue;
         input = document.getElementById("searchInput");
         filter = input.value.toUpperCase();
         table = document.getElementById("staffTable");
         tr = table.getElementsByTagName("tr");
+
+        // Reset currentIndex when filtering
+        currentIndex = 0;
+
         for (i = 0; i < tr.length; i++) {
             td = tr[i].getElementsByTagName("td")[1]; // Search by Last Name (index 1)
             if (td) {
                 txtValue = td.textContent || td.innerText;
                 if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = "";
+                    if (currentIndex === 0) {
+                        tr[i].style.display = ""; // Show the first matching record
+                    } else {
+                        tr[i].style.display = "none"; // Hide other matching records
+                    }
+                    currentIndex++;
                 } else {
                     tr[i].style.display = "none";
                 }
             }
+        }
+
+        // If no matches found, show the first record
+        if (currentIndex === 0) {
+            tr[1].style.display = "";
         }
     }
 </script>

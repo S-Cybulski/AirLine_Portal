@@ -239,4 +239,25 @@ class Admin
         return $response->withHeader('Location', "/admin/{$_SESSION['user_id']}/staff")->withStatus(302);
     }
 
+    public function viewAssign(Request $request, Response $response): Response
+    {
+        $staff = $this->repository->getAllStaff();
+
+        $flight = $this->repository->getFlightData();
+
+        $assignedToFlight = $this->repository->getAllAssignedFlights();
+
+        return $this->view->render($response,"adminAssignStaff.php", ['staffData' => $staff, 'flightData' => $flight, 'assigned' => $assignedToFlight]);
+    }
+
+    public function assign (Request $request, Response $response): Response
+    {
+        $body = $request->getParsedBody();
+
+        $this->repository->assignToFlight($body);
+
+        return $response->withHeader('Location', "/admin/{$_SESSION['user_id']}/assign-to-flight")->withStatus(302);
+
+    }
+
 }

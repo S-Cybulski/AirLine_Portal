@@ -50,6 +50,10 @@ $app->group('', function (RouteCollectorProxy $group) {
 
     $group->group('/admin/{id:[0-9]+}', function (RouteCollectorProxy $group) {
 
+        $group->get('/assign-to-flight', Admin::class . ':viewAssign');
+
+        $group->post('/assign-to-flight', Admin::class . ':assign');
+
         $group->group('/passengers', function (RouteCollectorProxy $group) {
 
             $group->get('', Admin::class . ':viewPassengers');

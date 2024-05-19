@@ -422,4 +422,31 @@ class AirlineRepository
         return $data;
     }
 
+    public function assignToFlight(array $body)
+    {
+        $sql = 'INSERT INTO Flight_crew (EMP_Num,Flight_Num) VALUES (:EMP_Num, :Flight_Num)';
+
+        $pdo = $this->database->getConnection();
+
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->bindValue(':EMP_Num', $body['EMP_Num'], PDO::PARAM_INT);
+
+        $stmt->bindValue(':Flight_Num', $body['Flight_Num'], PDO::PARAM_INT);
+
+        $stmt->execute();
+    }
+
+    public function getAllAssignedFlights(): array
+    {
+        $sql = 'SELECT * FROM Flight_crew';
+
+        $pdo = $this->database->getConnection();
+
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
