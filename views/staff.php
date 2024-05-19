@@ -6,6 +6,22 @@
     </div>
 </header>
 
+<div id="display-info">
+    <label for="empNum">Employee Number:</label><br>
+    <span id="empNum"><?= $staff['EMP_Num'] ?></span><br>
+    <label for="lastName">Last Name:</label><br>
+    <span id="lastName"><?= $staff['Last_name'] ?></span><br>
+    <label for="firstName">First Name:</label><br>
+    <span id="firstName"><?= $staff['First_name'] ?></span><br>
+    <label for="address">Address:</label><br>
+    <span id="address"><?= $staff['Address'] ?></span><br>
+    <label for="phoneNumber">Phone Number:</label><br>
+    <span id="phoneNumber"><?= $staff['Phone_number'] ?></span><br>
+    <label for="salary">Salary:</label><br>
+    <span id="salary"><?= $staff['Salary'] ?></span><br><br>
+    <input type="hidden" name="employeeId" value="<?= $staff['EMP_Num'] ?>">
+</div>
+
 <h1>Assigned Flights:</h1>
 
 <div class="flight-container">

@@ -44,6 +44,10 @@ $app->group('', function (RouteCollectorProxy $group) {
 
     $group->get('/staff/{emp-num:[0-9]+}', Staff::class)->add(GetStaffById::class);
 
+    $group->get('/staff/{emp-num:[0-9]+}/manage-profile', Staff::class . ':viewUpdate')->add(GetStaffById::class);
+
+    $group->post('/staff/{emp-num:[0-9]+}/manage-profile/update', Staff::class . ':updateRecord');
+
     $group->group('/admin/{id:[0-9]+}', function (RouteCollectorProxy $group) {
 
         $group->group('/passengers', function (RouteCollectorProxy $group) {

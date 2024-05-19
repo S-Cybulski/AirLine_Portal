@@ -178,10 +178,8 @@ class AirlineRepository
                     First_name=:First_name, 
                     Address=:Address,
                     Phone_number=:Phone_number,
-                    Salary=:Salary,
-                    Departure_time=:departure_time,
-                    Serial_Num=:serial_num
-                WHERE Flight_Num = :id';
+                    Salary=:Salary
+                WHERE EMP_Num = :id';
 
         $pdo = $this->database->getConnection();
 
