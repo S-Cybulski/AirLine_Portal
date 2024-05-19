@@ -86,3 +86,13 @@ footer {
     background-color: transparent;
     text-decoration: underline;
 }
+
+.banner-container {
+    display: flex;
+}
+
+.banner-content {
+    display: flex;
+    flex-direction: column;
+    padding:10px;
+}

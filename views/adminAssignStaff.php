@@ -11,6 +11,8 @@
 <div class="content-container">
     <div class="content">
 
+        <h1>Assign Staff To Flight</h1>
+
         <form id="staffForm" action="/admin/<?=$_SESSION['user_id']?>/assign-to-flight" method="POST">
             <label for="staffFilter">Filter Staff by Last Name:</label>
             <select id="staffFilter" name="empNum">

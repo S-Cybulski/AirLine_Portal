@@ -1,45 +1,49 @@
-<header>
-    <div class="header-container">
-        <div class="Logo">LOGO</div>
-        <a href="/passenger/<?=$_SESSION['user_id']?>">Search</a>
-        <a href="/passenger/<?=$_SESSION['user_id']?>/flight-history">Flight History/Bookings</a>
-        <a href="/passenger/<?=$_SESSION['user_id']?>/manage-profile">Profile</a>
+<header class="admin-header-container">
+    <div class="admin-header">
+        <a class='header-link' href="/passenger/<?=$_SESSION['user_id']?>">Search</a>
+        <a class='header-link' href="/passenger/<?=$_SESSION['user_id']?>/flight-history">Flight History/Bookings</a>
+        <a class='header-link' href="/passenger/<?=$_SESSION['user_id']?>/manage-profile">Profile</a>
     </div>
 </header>
 
-<div class="banner-container">
-    <img src="" alt="Plane">
-    <h1>Booked Flights</h1>
+<div class="content-container">
+    <div class="content">
+
+        <div class="banner-container">
+            <h1>Booked Flights</h1>
+        </div>
+
+        <div class="flight-container">
+            <div class="flight-details">Flight Details</div>
+            <div class="flights">
+
+            <input type="text" id="searchInput" placeholder="Search...">
+            <br><br>
+            <table id="flightTable">
+                <tr>
+                    <th>Flight Number</th>
+                    <th>Origin</th>
+                    <th>Destination</th>
+                    <th>Date</th>
+                    <th>Arrival time</th>
+                    <th>Intermediary City</th>
+                    <th>Departure time</th>
+                </tr>
+                <?php foreach ($data as $flight): ?>
+                    <tr>
+                        <td><?= $flight['Flight_Num'] ?></td>
+                        <td><?= $flight['Origin'] ?></td>
+                        <td><?= $flight['Destination'] ?></td>
+                        <td><?= $flight['Date'] ?></td>
+                        <td><?= $flight['Arrival_time'] ?></td>
+                        <td><?= $flight['Intermediary_City'] ?? "" ?></td>
+                        <td><?= $flight['Departure_time'] ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
+            </div>
 </div>
 
-<div class="flight-container">
-    <div class="flight-details">Flight Details</div>
-    <div class="flights">
-
-    <input type="text" id="searchInput" placeholder="Search...">
-    <br><br>
-    <table id="flightTable">
-        <tr>
-            <th>Flight Number</th>
-            <th>Origin</th>
-            <th>Destination</th>
-            <th>Date</th>
-            <th>Arrival time</th>
-            <th>Intermediary City</th>
-            <th>Departure time</th>
-        </tr>
-        <?php foreach ($data as $flight): ?>
-            <tr>
-                <td><?= $flight['Flight_Num'] ?></td>
-                <td><?= $flight['Origin'] ?></td>
-                <td><?= $flight['Destination'] ?></td>
-                <td><?= $flight['Date'] ?></td>
-                <td><?= $flight['Arrival_time'] ?></td>
-                <td><?= $flight['Intermediary_City'] ?? "" ?></td>
-                <td><?= $flight['Departure_time'] ?></td>
-            </tr>
-        <?php endforeach; ?>
-    </table>
     </div>
 </div>
 
