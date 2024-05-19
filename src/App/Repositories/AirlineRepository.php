@@ -392,4 +392,36 @@ class AirlineRepository
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    public function getAssignedFlights(int $id) : array
+    {
+        $sql = 'SELECT Flight_NUM FROM Flight_crew WHERE EMP_Num=:id';
+
+        $pdo = $this->database->getConnection();
+
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $sql = 'SELECT f.* 
+        FROM Flight f
+        INNER JOIN Flight_crew fc ON f.Flight_Num = fc.Flight_Num
+        WHERE fc.EMP_Num = :id';
+
+        $pdo = $this->database->getConnection();
+
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $data;
+    }
+
 }

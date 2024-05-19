@@ -42,7 +42,7 @@ $app->group('', function (RouteCollectorProxy $group) {
 
     $group->get('/passenger/{id:[0-9]+}/flight-history', TravelHistory::class);
 
-    $group->get('/staff/{id:[0-9]+}', Staff::class);
+    $group->get('/staff/{emp-num:[0-9]+}', Staff::class)->add(GetStaffById::class);
 
     $group->group('/admin/{id:[0-9]+}', function (RouteCollectorProxy $group) {
 
