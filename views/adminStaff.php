@@ -7,7 +7,7 @@
     </div>
 </div>
 
-<h1>Aircraft View</h1>
+<h1>Staff View</h1>
 
 <input type="text" id="searchInput" onkeyup="searchStaff()" placeholder="Search for staff by Last Name">
 
@@ -19,6 +19,7 @@
         <th>Address</th>
         <th>Phone Number</th>
         <th>Salary</th>
+        <th>Type_Rating</th>
         <th>Actions</th>
     </tr>
     <?php foreach ($data as $staff): ?>
@@ -28,11 +29,14 @@
             <td><?= $staff['First_name'] ?></td>
             <td><?= $staff['Address'] ?></td>
             <td><?= $staff['Phone_number'] ?></td>
-            <td><?= $staff['Salary'] ?></td>
+            <td>$<?= $staff['Salary'] ?></td>
+            <td><?= $staff['Type_rating']?></td>
             <td>
-                <button onclick="viewStaff(<?= $staff['EMP_Num'] ?>)">View</button>
-                <button onclick="editStaff(<?= $staff['EMP_Num'] ?>)">Edit</button>
-                <button onclick="deleteStaff(<?= $staff['EMP_Num'] ?>)">Delete</button>
+                <a href="/admin/<?=$_SESSION['user_id']?>/staff/view/<?=$staff['EMP_Num']?>">View</a>
+                <a href="/admin/<?=$_SESSION['user_id']?>/staff/edit/<?=$staff['EMP_Num']?>">Edit</a>
+                <form action="/admin/<?=$_SESSION['user_id']?>/staff/delete/<?=$staff['EMP_Num']?>" method="POST">
+                    <button type="submit" onclick="return confirm('Are you sure you want to delete this record?')">Delete</button>
+                </form>
             </td>
         </tr>
     <?php endforeach; ?>

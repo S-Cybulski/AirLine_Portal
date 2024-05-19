@@ -19,6 +19,8 @@ use App\Controllers\Book;
 use App\Controllers\TravelHistory;
 use App\Middleware\GetPassengerById;
 use App\Middleware\GetFlightById;
+use App\Middleware\GetAircraftById;
+use App\Middleware\GetStaffById;
 
 $app->group('', function (RouteCollectorProxy $group) {
 
@@ -72,9 +74,31 @@ $app->group('', function (RouteCollectorProxy $group) {
 
         });
 
-        $group->get('/aircraft', Admin::class . ':viewAircraft');
+        $group->group('/aircraft', function (RouteCollectorProxy $group) {
 
-        $group->get('/staff', Admin::class . ':viewStaff');
+            $group->get('', Admin::class . ':viewAircraft');
+
+            $group->get('/view/{serial-num:[0-9]+}', Admin::class . ':viewAircraftRecord')->add(GetAircraftById::class);
+
+            $group->get('/edit/{serial-num:[0-9]+}', Admin::class . ':viewEditAircraftRecord')->add(GetAircraftById::class);
+
+            $group->post('/edit/{serial-num:[0-9]+}', Admin::class . ':editAircraftRecord');
+
+            $group->post('/delete/{serial-num:[0-9]+}', Admin::class . ':deleteAircraftRecord')->add(GetAircraftById::class);
+        });
+
+        $group->group('/staff', function (RouteCollectorProxy $group) {
+
+            $group->get('', Admin::class . ':viewStaff');
+
+            $group->get('/view/{emp-num:[0-9]+}', Admin::class . ':viewStaffRecord')->add(GetStaffById::class);
+
+            $group->get('/edit/{emp-num:[0-9]+}', Admin::class . ':viewEditStaffRecord')->add(GetStaffById::class);
+
+            $group->post('/edit/{emp-num:[0-9]+}', Admin::class . ':editStaffRecord');
+
+            $group->post('/delete/{emp-num:[0-9]+}', Admin::class . ':deleteStaffRecord')->add(GetStaffById::class);
+        });
     });
 })->add(ActivateSession::class);
 

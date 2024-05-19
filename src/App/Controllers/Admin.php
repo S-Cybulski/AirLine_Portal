@@ -141,4 +141,102 @@ class Admin
 
         return $response->withHeader('Location', "/admin/{$_SESSION['user_id']}/flights")->withStatus(302);
     }
+
+    public function viewAircraftRecord(Request $request, Response $response): Response
+    {
+        $aircraft = $request->getAttribute('aircraft');
+
+        return $this->view->render($response,"adminAircraftView.php", ['data' => $aircraft]);
+    }
+
+
+    public function viewEditAircraftRecord(Request $request, Response $response): Response
+    {
+        $aircraft = $request->getAttribute('aircraft');
+
+        return $this->view->render($response,"adminAircraftEdit.php", ['data' => $aircraft]);
+    }
+
+    public function editAircraftRecord(Request $request, Response $response): Response
+    {
+        $body = $request->getParsedBody();
+
+        $this->validator->mapFieldsRules([
+            'Manufacturer' => ['required'],
+            'Model' => ['required'],
+        ]);
+
+        $this->validator = $this->validator->withData($body);
+
+        if ( ! $this->validator->validate()) {
+            $errors = $this->validator->errors();
+
+            return $this->view->render($response, 'adminAircraftEdit.php', ['data' => $body, 'errors' => $errors]);
+        }
+
+        $this->repository->updateAircraft((int) $body['Serial_Num'], $body);
+
+        return $response->withHeader('Location', "/admin/{$_SESSION['user_id']}/aircraft/view/{$body['Serial_Num']}")->withStatus(302);
+
+    }
+
+    public function deleteAircraftRecord(Request $request, Response $response): Response
+    {
+        $aircraft = $request->getAttribute("aircraft");
+
+        $this->repository->deleteAircraft((string) $aircraft['Serial_Num']);
+
+        return $response->withHeader('Location', "/admin/{$_SESSION['user_id']}/aircraft")->withStatus(302);
+    }
+
+    public function viewStaffRecord(Request $request, Response $response): Response
+    {
+        $staff = $request->getAttribute('staff');
+
+        return $this->view->render($response,"adminStaffView.php", ['data' => $staff]);
+    }
+
+
+    public function viewEditStaffRecord(Request $request, Response $response): Response
+    {
+        $staff = $request->getAttribute('staff');
+
+        return $this->view->render($response,"adminStaffEdit.php", ['data' => $staff]);
+    }
+
+    public function editStaffRecord(Request $request, Response $response): Response
+    {
+        $body = $request->getParsedBody();
+
+        $this->validator->mapFieldsRules([
+            'Last_name' => ['required'],
+            'First_name' => ['required'],
+            'Address' => ['required'],
+            'Phone_number' => ['required'],
+            'Salary' => ['required','numeric']
+        ]);
+
+        $this->validator = $this->validator->withData($body);
+
+        if ( ! $this->validator->validate()) {
+            $errors = $this->validator->errors();
+
+            return $this->view->render($response, 'adminStaffEdit.php', ['data' => $body, 'errors' => $errors]);
+        }
+
+        $this->repository->updateStaff((int) $body['EMP_Num'], $body);
+
+        return $response->withHeader('Location', "/admin/{$_SESSION['user_id']}/staff/view/{$body['EMP_Num']}")->withStatus(302);
+
+    }
+
+    public function deleteStaffRecord(Request $request, Response $response): Response
+    {
+        $aircraft = $request->getAttribute("aircraft");
+
+        $this->repository->deleteStaff((string) $aircraft['Serial_Num']);
+
+        return $response->withHeader('Location', "/admin/{$_SESSION['user_id']}/staff")->withStatus(302);
+    }
+
 }

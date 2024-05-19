@@ -36,9 +36,42 @@ class AirlineRepository
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    public function getAircraftById(int $id): array|bool
+    {
+        $sql = 'SELECT * FROM Aircraft WHERE Serial_Num = :id';
+
+        $pdo = $this->database->getConnection();
+
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
     public function getFlightById(int $id): array|bool
     {
         $sql = 'SELECT * FROM Flight WHERE Flight_Num = :id';
+
+        $pdo = $this->database->getConnection();
+
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function getStaffById(int $id): array|bool
+    {
+        $sql = 'SELECT s.*, p.Type_rating 
+        FROM Staff s 
+        LEFT JOIN Pilot p ON s.EMP_Num = p.EMP_Num 
+        WHERE s.EMP_Num = :id';
 
         $pdo = $this->database->getConnection();
 
@@ -138,6 +171,61 @@ class AirlineRepository
         return $stmt->rowCount();
     }
 
+    public function updateStaff(int $id, array $data) : int
+    {
+        $sql = 'UPDATE Staff
+                SET Last_name=:Last_name, 
+                    First_name=:First_name, 
+                    Address=:Address,
+                    Phone_number=:Phone_number,
+                    Salary=:Salary,
+                    Departure_time=:departure_time,
+                    Serial_Num=:serial_num
+                WHERE Flight_Num = :id';
+
+        $pdo = $this->database->getConnection();
+
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->bindValue(':Last_name', $data['Last_name'], PDO::PARAM_STR);
+
+        $stmt->bindValue(':First_name', $data['First_name'], PDO::PARAM_STR);
+
+        $stmt->bindValue(':Address', $data['Address'], PDO::PARAM_STR);
+
+        $stmt->bindValue(':Phone_number', $data['Phone_number'], PDO::PARAM_STR);
+
+        $stmt->bindValue(':Salary', $data['Salary'], PDO::PARAM_INT);
+
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        return $stmt->rowCount();
+    }
+
+    public function updateAircraft(int $id, array $data) : int
+    {
+        $sql = 'UPDATE Aircraft
+                SET Manufacturer=:Manufacturer, 
+                    Model=:Model
+                WHERE Serial_Num = :id';
+
+        $pdo = $this->database->getConnection();
+
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->bindValue(':Manufacturer', $data['Manufacturer'], PDO::PARAM_STR);
+
+        $stmt->bindValue(':Model', $data['Model'], PDO::PARAM_STR);
+
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        return $stmt->rowCount();
+    }
+
     public function deletePassenger(string $id) : int
     {
         $sql = 'DELETE FROM Passenger WHERE Passenger_ID = :id';
@@ -156,6 +244,36 @@ class AirlineRepository
     public function deleteFlight(string $id) : int
     {
         $sql = 'DELETE FROM Flight WHERE Flight_Num = :id';
+
+        $pdo = $this->database->getConnection();
+
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        return $stmt->rowCount();
+    }
+
+    public function deleteAircraft(string $id) : int
+    {
+        $sql = 'DELETE FROM Aircraft WHERE Serial_Num = :id';
+
+        $pdo = $this->database->getConnection();
+
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        return $stmt->rowCount();
+    }
+
+    public function deleteStaff(string $id) : int
+    {
+        $sql = 'DELETE FROM Staff WHERE EMP_Num = :id';
 
         $pdo = $this->database->getConnection();
 
@@ -233,7 +351,9 @@ class AirlineRepository
 
     public function getAllStaff() : array
     {
-        $sql = 'SELECT * FROM Staff';
+        $sql = 'SELECT s.*, p.Type_rating 
+        FROM Staff s 
+        LEFT JOIN Pilot p ON s.EMP_Num = p.EMP_Num';
 
         $pdo = $this->database->getConnection();
 
@@ -255,6 +375,21 @@ class AirlineRepository
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getTypeRating(int $id)
+    {
+        $sql = 'SELECT Type_rating FROM Pilot WHERE EMP_Num = :id';
+
+        $pdo = $this->database->getConnection();
+
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
 }

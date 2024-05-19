@@ -24,9 +24,11 @@
             <td><?= $aircraft['Manufacturer'] ?></td>
             <td><?= $aircraft['Model'] ?></td>
             <td>
-                <button onclick="viewAircraft(<?= $aircraft['Serial_Num'] ?>)">View</button>
-                <button onclick="editAircraft(<?= $aircraft['Serial_Num'] ?>)">Edit</button>
-                <button onclick="deleteAircraft(<?= $aircraft['Serial_Num'] ?>)">Delete</button>
+            <a href="/admin/<?=$_SESSION['user_id']?>/aircraft/view/<?=$aircraft['Serial_Num']?>">View</a>
+            <a href="/admin/<?=$_SESSION['user_id']?>/aircraft/edit/<?=$aircraft['Serial_Num']?>">Edit</a>
+            <form action="/admin/<?=$_SESSION['user_id']?>/aircraft/delete/<?=$aircraft['Serial_Num']?>" method="POST">
+                <button type="submit" onclick="return confirm('Are you sure you want to delete this record?')">Delete</button>
+            </form>
             </td>
         </tr>
     <?php endforeach; ?>
