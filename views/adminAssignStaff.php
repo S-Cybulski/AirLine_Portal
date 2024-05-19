@@ -1,56 +1,66 @@
 <div class="admin-header-container">
     <div class="admin-header">
-        <a href="/admin/<?=$_SESSION['user_id']?>/passengers">Manage Passengers</a>
-        <a href="/admin/<?=$_SESSION['user_id']?>/flights">Manage Flights</a>
-        <a href="/admin/<?=$_SESSION['user_id']?>/aircraft">Manage Aircraft</a>
-        <a href="/admin/<?=$_SESSION['user_id']?>/staff">Manage Staff</a>
+        <a class="header-link" href="/admin/<?=$_SESSION['user_id']?>/passengers">Manage Passengers</a>
+        <a class="header-link" href="/admin/<?=$_SESSION['user_id']?>/flights">Manage Flights</a>
+        <a class="header-link" href="/admin/<?=$_SESSION['user_id']?>/aircraft">Manage Aircraft</a>
+        <a class="header-link" href="/admin/<?=$_SESSION['user_id']?>/staff">Manage Staff</a>
+        <a class="header-link" href="/admin/<?=$_SESSION['user_id']?>/assign-to-flight">Assign To Flight</a>
     </div>
 </div>
 
-<form id="staffForm" action="/admin/<?=$_SESSION['user_id']?>/assign-to-flight" method="POST">
-    <label for="staffFilter">Filter Staff by Last Name:</label>
-    <select id="staffFilter" name="empNum">
-        <option value="">Select Staff</option>
-        <?php foreach ($staffData as $staff): ?>
-            <option value="<?= $staff['EMP_Num'] ?>"><?php echo $staff['EMP_Num'] . " - " . $staff['Last_name'] . ", " . $staff['First_name'] ?></option>
-        <?php endforeach; ?>
-    </select>
+<div class="content-container">
+    <div class="content">
 
-    <label for="flightFilter">Filter Flights by Origin:</label>
-    <select id="flightFilter" name="flightNum">
-        <option value="">Select Flight</option>
-        <?php foreach ($flightData as $flight): ?>
-            <option value="<?= $flight['Flight_Num'] ?>"><?= $flight['Flight_Num'] ?> - <?= $flight['Origin'] ?> to <?= $flight['Destination'] ?></option>
-        <?php endforeach; ?>
-    </select>
-    
-    <div id="flightDetails">
-        <!-- Flight details will be displayed here -->
+        <form id="staffForm" action="/admin/<?=$_SESSION['user_id']?>/assign-to-flight" method="POST">
+            <label for="staffFilter">Filter Staff by Last Name:</label>
+            <select id="staffFilter" name="empNum">
+                <option value="">Select Staff</option>
+                <?php foreach ($staffData as $staff): ?>
+                    <option value="<?= $staff['EMP_Num'] ?>"><?php echo $staff['EMP_Num'] . " - " . $staff['Last_name'] . ", " . $staff['First_name'] ?></option>
+                <?php endforeach; ?>
+            </select>
+
+            <label for="flightFilter">Filter Flights by Origin:</label>
+            <select id="flightFilter" name="flightNum">
+                <option value="">Select Flight</option>
+                <?php foreach ($flightData as $flight): ?>
+                    <option value="<?= $flight['Flight_Num'] ?>"><?= $flight['Flight_Num'] ?> - <?= $flight['Origin'] ?> to <?= $flight['Destination'] ?></option>
+                <?php endforeach; ?>
+            </select>
+            
+            <div id="flightDetails">
+                <!-- Flight details will be displayed here -->
+            </div>
+
+            <input type="hidden" id="selectedEmpNum" name="EMP_Num" value="">
+            <input type="hidden" id="selectedFlightNum" name="Flight_Num" value="">
+
+            <button type="submit">Submit</button>
+        </form>
+
+        <h1>Assigned To Flight Table</h1>
+
+        <!-- Add a search input field -->
+        <input type="text" id="searchInput" placeholder="Search by Employee Number">
+
+        <table id="assignedFlightsTable">
+            <tr>
+                <th>Employee Number</th>
+                <th>Flight Number</th>
+            </tr>
+            <?php foreach ($assigned as $assign): ?>
+                <tr>
+                    <td><?= $assign['EMP_Num'] ?></td>
+                    <td><?= $assign['Flight_Num'] ?></td>
+                </tr>
+            <?php endforeach; ?>
+        </table>
+
+        
     </div>
+</div>
 
-    <input type="hidden" id="selectedEmpNum" name="EMP_Num" value="">
-    <input type="hidden" id="selectedFlightNum" name="Flight_Num" value="">
-
-    <button type="submit">Submit</button>
-</form>
-
-<h1>Assigned To Flight Table</h1>
-
-<!-- Add a search input field -->
-<input type="text" id="searchInput" placeholder="Search by Employee Number">
-
-<table id="assignedFlightsTable">
-    <tr>
-        <th>Employee Number</th>
-        <th>Flight Number</th>
-    </tr>
-    <?php foreach ($assigned as $assign): ?>
-        <tr>
-            <td><?= $assign['EMP_Num'] ?></td>
-            <td><?= $assign['Flight_Num'] ?></td>
-        </tr>
-    <?php endforeach; ?>
-</table>
+<footer>@software engineering 2024</footer>
 
 <script>
 
